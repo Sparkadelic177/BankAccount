@@ -1,18 +1,15 @@
 import java.time.LocalDate;
 
-public class ATM1742{
-    public static void main(String[] args){
-      BankAccount();
-    }
+class ATM1742{
 
-    public static class BankAccount(){
+    private class BankAccount{
         private int id;
         private double balance;
         private double annualInterestRate;
         private LocalDate dateCreated;
-
+        
         public BankAccount(){
-            id = null;
+            id = 0;
             balance = 0;
             annualInterestRate = 0;
             dateCreated = LocalDate.now();
@@ -25,61 +22,76 @@ public class ATM1742{
             dateCreated = LocalDate.now();
         }
 
-        public static void setId (int id){
+        private void setId (int id){
             this.id = id;
         }
 
-        public static void setBalance (double balance){
+        private void setBalance (double balance){
             this.balance = balance;
         }
-        public static void setInterestRate(double annualInterestRate){
+        private void setInterestRate(double annualInterestRate){
             this.annualInterestRate = annualInterestRate;
         }
 
-        public static int getId(){
+        public int getId(){
             return this.id;
         }
 
-        public static double getBalance(){
+        public double getBalance(){
+            System.out.println("Your Current Balance is" + balance);
             return this.balance;
         }
 
-        public static double getInterestRate(){
+        public double getInterestRate(){
             return this.annualInterestRate;
         }
 
-        public static LocalDate getDateCreated(){ 
+        public LocalDate getDateCreated(){ 
             return this.dateCreated;
         }
 
-        public static double getMonthlyInterestRate(){
+        public double getMonthlyInterestRate(){
+            System.out.println("Your monthly interest is " + (this.annualInterestRate / 100) / 12);
             return (this.annualInterestRate / 100) / 12;
         }
 
-        public static double getMonthlyInterest(){
-            return this.getMonthlyInterestRate * balance;
+        public double getMonthlyInterest(){
+            return this.getMonthlyInterestRate() * balance;
         }
 
-        public static void withdraw(double withdraw){
+        private void withdraw(double withdraw){
             if(withdraw > balance){
                 System.out.println("You dont have enough money to withdraw this amount");
-                withdraw(double withdraw);
+                return;
             }
-            balance = balance - withdraw;
+            balance = balance - withdraw;            
+            System.out.println("You have withdrew " + withdraw);
+            System.out.println("Your new balance is " + balance);
         }
 
-        public static void deposit(double deposit){
-            balance = balance + deposit;
+        private void deposit(double deposit){
+            balance = balance + deposit;            
+            System.out.println("You have desposited " + deposit);
+            System.out.println("Your new balance is " + balance);
         }
+    }
 
         //this is the class that is being used to test out the bankaccount class 
-        public static void main(String[] args){
-            BankAccount(1122, 20000.00, 4.5);
-            withdraw(2,500);
-            deposit(3000.00);
+        public void bankTest(){
+            BankAccount money = new BankAccount(1122, 20000.00, 4.5);
+            money.withdraw(2500.00);
+            money.deposit(3000.00);
 
-            getBalance();
-            getMonthlyInterest();
-            getDateCreated();
+            money.getBalance();
+            money.getMonthlyInterest();
+            money.getDateCreated();
         }
-}
+    
+
+        public static void main(String[] args){
+            ATM1742 money = new ATM1742();
+            money.bankTest();
+        }
+    }
+
+
